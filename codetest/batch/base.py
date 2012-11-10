@@ -11,6 +11,11 @@ LOG_LEVELS = [logging.ERROR, logging.INFO, logging.DEBUG]
 CONSOLE_FORMAT = '%(asctime)s - %(name)-12s: %(levelname)-8s %(message)s'
     
 class BaseBatch(object):
+    """Base batch class.
+
+    Supports logging, database connections, and option parsing.
+    """
+
     def __init__(self):
         self.log = logging.getLogger(__name__)
         self.option_parser = optparse.OptionParser()
