@@ -4,15 +4,15 @@ from codetest.models.base import BaseModel
 
 class Review(BaseModel):
 	"""Object to keep track of reviews"""
-	TYPE = 'review'
 
+	TYPE = 'review'
 	__tablename__ = 'review'
 
 	id = Column(Integer, primary_key=True)
 
 	business_id = Column(String(30)) # XXX set up FK relation
 	user_id = Column(String(30)) # XXX: Ditto
-	stars = Column(Float, nullable=False)
+	stars = Column(Integer, nullable=False)
 	text = Column(Text, nullable=False)
 	date = Column(DateTime, nullable=False)
 	useful_votes = Column(Integer, nullable=False, default=0)
@@ -22,7 +22,7 @@ class Review(BaseModel):
 	@classmethod
 	def from_dict(cls, data):
 		if data['type'] != cls.TYPE:
-			return None
+			return []
 
 		review = cls()
 		review.business_id = data['business_id']
@@ -33,4 +33,17 @@ class Review(BaseModel):
 		review.useful_votes = data['votes']['useful']
 		review.funny_votes = data['votes']['funny']
 		review.cool_votes = data['votes']['cool']
-		return review
+		return [review]
+
+	def __str__(self):
+		return "[%d] (b%s,u%s) %s - %d %d/%d/%d %.40s" % (
+			self.id,
+			self.business_id,
+			self.user_id,
+			self.date,
+			self.stars,
+			self.useful_votes,
+			self.funny_votes,
+			self.cool_votes,
+			self.text,
+		)

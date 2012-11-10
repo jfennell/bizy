@@ -31,23 +31,27 @@ class LoadDataset(BaseBatch):
 				entry = json.loads(line)
 
 				if entry['type'] == models.Review.TYPE:
-					obj = models.Review.from_dict(entry)
+					objs = models.Review.from_dict(entry)
 				elif entry['type'] == models.Business.TYPE:
-					obj = models.Business.from_dict(entry)
+					objs = models.Business.from_dict(entry)
 				elif entry['type'] == models.User.TYPE:
-					obj = models.User.from_dict(entry)
+					objs = models.User.from_dict(entry)
 				else:
 					raise ValueError(
 						'Line %d, Unknown object type: "%s"' % (
 							line_no, data['type'],))
 
-				if obj is None:
+				if not objs:
 					raise ValueError('Line %d, model building failed' % (line_no,))
 
-				self.session.add(obj)
+				for obj in objs:
+					self.session.add(obj)
 
 				# XXX add baching later
-				self._safe_commit()
+				try:
+					self._safe_commit()
+				except Exception:
+					import pdb; pdb.set_trace()
 
 
 

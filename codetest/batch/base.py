@@ -62,7 +62,7 @@ class BaseBatch(object):
         try:
             self.session.commit()
         except Exception:
-            self.log.exception('Failure trying to commit last %d actions' % (self.commit_frequency,))
+            self.log.exception('Failure trying to commit')
             self.session.rollback()
             raise
 

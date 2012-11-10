@@ -4,8 +4,8 @@ from codetest.models.base import BaseModel
 
 class User(BaseModel):
 	"""Object to keep track of users"""
-	TYPE = 'user'
 
+	TYPE = 'user'
 	__tablename__ = 'user'
 
 	id = Column(String, primary_key=True)
@@ -20,7 +20,7 @@ class User(BaseModel):
 	@classmethod
 	def from_dict(cls, data):
 		if data['type'] != cls.TYPE:
-			return None
+			return []
 
 		user = cls()
 		user.id = data['user_id']
@@ -30,4 +30,15 @@ class User(BaseModel):
 		user.useful_votes = data['votes']['useful']
 		user.funny_votes = data['votes']['funny']
 		user.cool_votes = data['votes']['cool']
-		return user
+		return [user]
+
+	def __str__(self):
+		return "[%s] %s: %.1f(%d) %d/%d/%d" % (
+			self.id,
+			self.name,
+			self.review_count,
+			self.average_stars,
+			self.useful_votes,
+			self.funny_votes,
+			self.cool_votes
+		)

@@ -1,17 +1,19 @@
 from sqlalchemy import Column, Integer, String, Boolean, Float
+from sqlalchemy.orm import relationship
 
 from codetest.models.base import BaseModel
+from codetest.models.hood import Hood
 
 class Business(BaseModel):
 	"""Object to keep track of businesses"""
-	TYPE = 'business'
 
+	TYPE = 'business'	
 	__tablename__ = 'business'
 
-	id = Column(String, primary_key=True)
+	id = Column(String(30), primary_key=True)
 
 	name = Column(String(50), nullable=False)
-	hoods = Column(String(100)) # how to handle a list?
+	hoods = relationship("Hood")
 	full_address = Column(String(70))
 	city = Column(String(30))
 	state = Column(String(3))
@@ -28,11 +30,12 @@ class Business(BaseModel):
 	@classmethod
 	def from_dict(cls, data):
 		if data['type'] != cls.TYPE:
-			return None
+			return []
 
 		biz = cls()
+		biz.id = data['business_id']
 		biz.name = data['name']
-		biz.hoods = str(data['neighborhoods'])
+		#biz.hoods = str(data['neighborhoods'])
 		biz.full_address = data['full_address']
 		biz.city = data['city']
 		biz.state = data['state']
@@ -45,4 +48,21 @@ class Business(BaseModel):
 		biz.is_open = data['open']
 		biz.schools = str(data['schools'])
 		biz.url = data['url']
-		return biz
+
+		hoods = []
+		for hood_name in data['neighborhoods']:
+			hood = Hood()
+			hood.business_id = biz.id
+			hood.name = hood_name
+			hoods.append(hood)
+
+		return [biz] + hoods
+
+	def __str__(self):
+		return "[%s] %s %.1f(%d) [%s]" % (
+			self.id,
+			self.name,
+			self.stars,
+			self.review_count,
+			self.schools
+		)
