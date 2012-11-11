@@ -25,14 +25,14 @@ class AllSchoolHandler(tornado.web.RequestHandler):
 		)
 
 	def _make_link(self, school):
-		link = '/school/one?id=%s' % school.id
+		link = '/school?id=%s' % school.id
 		return '<a href=%s>%s</a>' % (
 			link,
 			school.name)
 
 class OneSchoolHandler(tornado.web.RequestHandler):
 
-	url_pattern = r'^/school/one$'
+	url_pattern = r'^/school$'
 
 	def get(self):
 		school_id = self.get_argument('id')
