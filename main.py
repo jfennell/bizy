@@ -4,6 +4,7 @@ import tornado.web
 import codetest.handlers
 import codetest.models
 
+print codetest.handlers.urls
 application = tornado.web.Application(
     codetest.handlers.urls
 )
