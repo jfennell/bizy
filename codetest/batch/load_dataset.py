@@ -32,6 +32,8 @@ class LoadDataset(BaseBatch):
 		with open(self.options.path) as f:
 			for line_no, line in enumerate(f):
 				entry = json.loads(line)
+				self.log.debug('Loading line %d, type %s' % (
+					line_no, entry['type']))
 
 				if entry['type'] == models.Review.TYPE:
 					# objs = models.Review.from_dict(entry)
@@ -56,7 +58,9 @@ class LoadDataset(BaseBatch):
 				# ...not sure it is safe w/ the stuff I do to add schools...
 				self._safe_commit()
 
+		self.log.debug('Starting to load reviews')
 		for review_num, review_datum in enumerate(review_data):
+			self.log.debug('Loading review num %d' % (review_num,))
 			objs = models.Review.from_dict(review_datum)
 			for obj in objs:
 				self.session.add(obj)
