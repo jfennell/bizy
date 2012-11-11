@@ -13,3 +13,9 @@ class School(BaseModel):
 
 	def __str__(self):
 		return self.name
+
+	# Kinda weird to be putting urls in the model...
+	@property
+	def url(self):
+		return '/school?id=%s' % self.id
+

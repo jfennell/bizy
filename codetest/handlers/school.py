@@ -6,6 +6,7 @@ import tornado.web
 # from codetest.handlers.base import BaseHandler
 
 from codetest import models
+from codetest import views
 
 class AllSchoolHandler(tornado.web.RequestHandler):
 
@@ -17,18 +18,14 @@ class AllSchoolHandler(tornado.web.RequestHandler):
 		schools.sort(key=lambda s: s.name)
 		session.close()
 
-		# ...use templates...
 		self.write(
-			'<!DOCTYPE html><html><body><ul>%s</ul></body></html>' % (
-				'\n'.join('<li>%s</li>' % (self._make_link(s),) for s in schools)
+			views.render(
+				"all_school.html",
+				env=dict(
+					schools=schools,
+				)
 			)
 		)
-
-	def _make_link(self, school):
-		link = '/school?id=%s' % school.id
-		return '<a href=%s>%s</a>' % (
-			link,
-			school.name)
 
 class OneSchoolHandler(tornado.web.RequestHandler):
 
