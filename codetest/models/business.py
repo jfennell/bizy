@@ -24,8 +24,14 @@ class Business(BaseModel):
 	photo_url = Column(String(50))
 	categories = Column(String(100)) # XXX
 	is_open = Column(Boolean)
-	schools = Column(String(100))  #XXX
+	#schools = Column(String(100))  #XXX
+	schools = relationship(
+		'School',
+		secondary='business_school',
+		backref='business')
 	url = Column(String(50))
+
+	reviews = relationship('Review', backref='business')
 
 	@classmethod
 	def from_dict(cls, data):
@@ -46,7 +52,7 @@ class Business(BaseModel):
 		biz.photo_url = data['photo_url']
 		biz.categories = str(data['categories'])
 		biz.is_open = data['open']
-		biz.schools = str(data['schools'])
+		#biz.schools = str(data['schools'])
 		biz.url = data['url']
 
 		hoods = []

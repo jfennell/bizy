@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy.orm import relationship
 
 from codetest.models.base import BaseModel
 
@@ -16,6 +17,8 @@ class User(BaseModel):
 	useful_votes = Column(Integer, nullable=False, default=0)
 	funny_votes = Column(Integer, nullable=False, default=0)
 	cool_votes = Column(Integer, nullable=False, default=0)
+
+	reviews = relationship('Review', backref='user')
 
 	@classmethod
 	def from_dict(cls, data):

@@ -64,6 +64,8 @@ class BaseBatch(object):
         except Exception:
             self.log.exception('Failure trying to commit')
             self.session.rollback()
+            import pdb; pdb.set_trace()
+            print 'line for pdb to hit'
             raise
 
     def run(self):

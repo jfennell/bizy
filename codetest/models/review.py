@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, Float
+import datetime
+
+from sqlalchemy import Column, Integer, String, DateTime, Text, Float, ForeignKey
 
 from codetest.models.base import BaseModel
 
@@ -10,8 +12,8 @@ class Review(BaseModel):
 
 	id = Column(Integer, primary_key=True)
 
-	business_id = Column(String(30)) # XXX set up FK relation
-	user_id = Column(String(30)) # XXX: Ditto
+	business_id = Column(String(30), ForeignKey('business.id'))
+	user_id = Column(String(30), ForeignKey('user.id'))
 	stars = Column(Integer, nullable=False)
 	text = Column(Text, nullable=False)
 	date = Column(DateTime, nullable=False)

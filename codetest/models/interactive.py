@@ -1,7 +1,7 @@
 """
 Easy setup to get an interactive db session.
 """
-import codetest.models
+from codetest import models
 
-codetest.models.setup_model()
-session = codetest.models.Session()
+models.setup_model()
+session = models.Session()

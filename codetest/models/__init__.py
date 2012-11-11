@@ -5,6 +5,10 @@ from codetest.models.base import BaseModel
 from codetest.models.user import User
 from codetest.models.review import Review
 from codetest.models.business import Business
+from codetest.models.hood import Hood
+from codetest.models.school import School
+
+from codetest.models.business_school import business_school
 
 engine = None
 Session = None
