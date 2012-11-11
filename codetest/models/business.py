@@ -72,3 +72,7 @@ class Business(BaseModel):
 			self.review_count,
 			self.schools
 		)
+
+	@property
+	def url(self):
+		return '/biz?id=%s' % (self.id,)

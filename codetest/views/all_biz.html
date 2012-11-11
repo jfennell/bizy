@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block body %}
+	<ul>
+	{% for biz in bizs %}
+		<li><a href={{ biz.url }}>{{ escape(biz.name) }}</a></li>
+	{% end %}
+	</ul>
+{% end %}
