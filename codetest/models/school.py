@@ -16,6 +16,6 @@ class School(BaseModel):
 
 	# Kinda weird to be putting urls in the model...
 	@property
-	def url(self):
+	def codetest_url(self):
 		return '/school?id=%s' % self.id
 

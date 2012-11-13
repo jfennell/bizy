@@ -3,7 +3,7 @@
 {% block body %}
 	<ul>
 	{% for school in schools %}
-		<li><a href={{ school.url }}>{{ escape(school.name) }}</a></li>
+		<li><a href={{ school.codetest_url }}>{{ escape(school.name) }}</a></li>
 	{% end %}
 	</ul>
 {% end %}

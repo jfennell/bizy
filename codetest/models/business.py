@@ -1,3 +1,5 @@
+import json
+
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from sqlalchemy.orm import relationship
 
@@ -64,6 +66,31 @@ class Business(BaseModel):
 
 		return [biz] + hoods
 
+	@property
+	def dict(self):
+		return {
+			'type': 'business',
+			'business_id': self.id,
+			'name': self.name,
+			'neighborhoods': sorted(h.name for h in self.hoods),
+			'full_address': self.full_address,
+			'city': self.city,
+			'state': self.state,
+			'latitude': self.latitude,
+			'longitude': self.longitude,
+			'stars': self.stars,
+			'review_count': self.review_count,
+			'photo_url': self.photo_url,
+			'categories': eval(self.categories), # XXX: Should *not* eval here!!
+			'open': self.is_open,
+			'schools': sorted(s.name for s in self.schools),
+			'url': self.url,
+		}
+
+	@property
+	def json(self):
+		return json.dumps(self.dict)
+
 	def __str__(self):
 		return "[%s] %s %.1f(%d) [%s]" % (
 			self.id,
@@ -74,5 +101,5 @@ class Business(BaseModel):
 		)
 
 	@property
-	def url(self):
+	def codetest_url(self):
 		return '/biz?id=%s' % (self.id,)

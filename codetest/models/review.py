@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from sqlalchemy import Column, Integer, String, DateTime, Text, Float, ForeignKey
 
@@ -36,6 +37,26 @@ class Review(BaseModel):
 		review.funny_votes = data['votes']['funny']
 		review.cool_votes = data['votes']['cool']
 		return [review]
+
+	@property
+	def dict(self):
+		return {
+			'type': 'review',
+			'business_id': self.business_id, 
+			'user_id': self.user_id,
+			'stars': self.stars,
+			'text': self.text,
+			'date': str(self.date),
+			'votes': {
+				'useful': self.useful_votes,
+				'funny': self.funny_votes,
+				'cool': self.cool_votes,
+			}
+		}
+
+	@property
+	def json(self):
+		return json.dumps(self.dict)
 
 	def __str__(self):
 		return "[%d] (b%s,u%s) %s - %d %d/%d/%d %.40s" % (
