@@ -24,7 +24,6 @@ class Business(BaseModel):
 	photo_url = Column(String(50))
 	categories = Column(String(100)) # XXX
 	is_open = Column(Boolean)
-	#schools = Column(String(100))  #XXX
 	schools = relationship(
 		'School',
 		secondary='business_school',
@@ -32,6 +31,11 @@ class Business(BaseModel):
 	url = Column(String(50))
 
 	reviews = relationship('Review', backref='business')
+
+	users = relationship(
+		'User',
+		secondary='review',
+		backref='business')
 
 	@classmethod
 	def from_dict(cls, data):
@@ -41,7 +45,6 @@ class Business(BaseModel):
 		biz = cls()
 		biz.id = data['business_id']
 		biz.name = data['name']
-		#biz.hoods = str(data['neighborhoods'])
 		biz.full_address = data['full_address']
 		biz.city = data['city']
 		biz.state = data['state']
@@ -52,7 +55,6 @@ class Business(BaseModel):
 		biz.photo_url = data['photo_url']
 		biz.categories = str(data['categories'])
 		biz.is_open = data['open']
-		#biz.schools = str(data['schools'])
 		biz.url = data['url']
 
 		hoods = []
@@ -93,7 +95,3 @@ class Business(BaseModel):
 			self.review_count,
 			self.schools
 		)
-
-	@property
-	def codetest_url(self):
-		return '/biz?id=%s' % (self.id,)

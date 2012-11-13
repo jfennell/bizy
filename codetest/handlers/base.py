@@ -28,3 +28,13 @@ class BaseHandler(tornado.web.RequestHandler):
 	def render_as_json(self, data, indent=2):
 		self.set_header('Content-Type', 'application/json')
 		self.write(json.dumps(data, indent=indent))
+
+	def get_from_model_by_id_arg(self, session, model):
+		"""Retrieve the object indicated by query arg `id` from `model`."""
+		id_ = self.get_argument('id')
+
+		obj = session.query(model).filter_by(id=id_).first()
+		if obj is None:
+			self.send_error(status_code=404)
+
+		return obj

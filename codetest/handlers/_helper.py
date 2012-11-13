@@ -27,7 +27,7 @@ def make_get_one_handler(model):
 			session = models.Session()
 			obj = session.query(model).filter_by(id=id_).first()
 			if obj is None:
-				self.send_error(status_code=400)
+				self.send_error(status_code=404)
 
 			self.render_as_json(obj.dict)
 			session.close()
