@@ -1,5 +1,3 @@
-import json
-
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
 
@@ -51,10 +49,6 @@ class User(BaseModel):
 				'cool': self.cool_votes,
 			}
 		}
-
-	@property
-	def json(self):
-		return json.dumps(self.dict)
 
 	def __str__(self):
 		return "[%s] %s: %.1f(%d) %d/%d/%d" % (

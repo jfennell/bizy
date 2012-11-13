@@ -1,6 +1,6 @@
-import tornado.web
+from codetest.handlers.base import BaseHandler
 
-class MainHandler(tornado.web.RequestHandler):
+class MainHandler(BaseHandler):
 
 	url_pattern = r"/"
 

@@ -1,5 +1,4 @@
 import datetime
-import json
 
 from sqlalchemy import Column, Integer, String, DateTime, Text, Float, ForeignKey
 
@@ -53,10 +52,6 @@ class Review(BaseModel):
 				'cool': self.cool_votes,
 			}
 		}
-
-	@property
-	def json(self):
-		return json.dumps(self.dict)
 
 	def __str__(self):
 		return "[%d] (b%s,u%s) %s - %d %d/%d/%d %.40s" % (

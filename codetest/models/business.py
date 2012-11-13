@@ -1,5 +1,3 @@
-import json
-
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from sqlalchemy.orm import relationship
 
@@ -86,10 +84,6 @@ class Business(BaseModel):
 			'schools': sorted(s.name for s in self.schools),
 			'url': self.url,
 		}
-
-	@property
-	def json(self):
-		return json.dumps(self.dict)
 
 	def __str__(self):
 		return "[%s] %s %.1f(%d) [%s]" % (

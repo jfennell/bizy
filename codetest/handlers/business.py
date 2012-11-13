@@ -7,8 +7,9 @@ import tornado.web
 
 from codetest import models
 from codetest import views
+from codetest.handlers.base import BaseHandler
 
-class AllBusinessHandler(tornado.web.RequestHandler):
+class AllBusinessHandler(BaseHandler):
 
 	url_pattern = r'^/biz/all$'
 
@@ -27,7 +28,7 @@ class AllBusinessHandler(tornado.web.RequestHandler):
 			)
 		)
 
-class OneBusinessHandler(tornado.web.RequestHandler):
+class OneBusinessHandler(BaseHandler):
 
 	url_pattern = r'^/biz$'
 
@@ -39,6 +40,8 @@ class OneBusinessHandler(tornado.web.RequestHandler):
 		if biz is None:
 			self.send_error(status_code=400)
 
-		self.write(
-			'<!DOCTYPE html><html><body>%s</body></html>' % (biz.name,)
-		)
+		self.render_as_json(biz.dict)
+
+		# self.write(
+		# 	'<!DOCTYPE html><html><body>%s</body></html>' % (biz.name,)
+		# )
