@@ -18,11 +18,20 @@ You will be juged on:
 If you're having fun with the project, adding a couple extra entrypoints
 to the API that give interesting views into the data.
 
-Ok, how bout this for idea:
- /biz/all - JSON list of all biz ids
- /biz?id=X - JSON data for that biz
-Ditto for user, and school. review should not have all.
-Or maybe only school should have all...
+## Ok, how bout this for idea:
+
+### Unneeded, but convenient
+
+ * /business/all
+ * /school/all
+ * /user/all
+
+### Required views
+
+ * /business/reviews?id=<xxx>
+ * /business/users?id=<xxx>
+ * /user/reviews?id=<xxx>
+ * /school/businesses?id=<xxx>
 
 Could potentially give a js fronend that they can plug into... App should be interactive
 through that js frontend.... I kinda like that idea.
