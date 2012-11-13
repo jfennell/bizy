@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block body %}
+	<ul>
+	{% for obj in objs %}
+		<li><a href="{{ reverse_url(obj.__tablename__) }}?id={{ obj.id }}">{{ escape(obj.name) }}</a></li>
+	{% end %}
+	</ul>
+{% end %}

@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-
-{% block body %}
-	<ul>
-	{% for biz in bizs %}
-		<li><a href={{ biz.codetest_url }}>{{ escape(biz.name) }}</a></li>
-	{% end %}
-	</ul>
-{% end %}

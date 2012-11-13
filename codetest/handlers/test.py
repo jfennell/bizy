@@ -6,3 +6,7 @@ class MainHandler(BaseHandler):
 
 	def get(self):
 		self.write("Hello, world")
+
+class TestHandler(BaseHandler):
+	def get(self):
+		self.render("test.html")

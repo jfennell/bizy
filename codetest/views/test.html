@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+	<ul>
+		<li><em>handler:</em>{{ handler }}</li>
+		<li><em>request:</em>{{ request }}</li>
+		<li><em>current_user:</em>{{ current_user }}</li>
+		<li><em>locale:</em>{{ locale }}</li>
+		<li><em>translate:</em>{{ _ }}</li>
+		<li><em>static_url:</em>{{ static_url }}</li>
+		<li><em>xsrf_form_html:</em>{{ xsrf_form_html }}</li>
+		<li><em>reverse_url:</em>{{ reverse_url }}</li>
+		<li><em>reverse user_all:</em><a href={{ reverse_url('all_user') }}>all users</a></li>
+	</ul>
+{% end %}

@@ -14,8 +14,10 @@ class School(BaseModel):
 	def __str__(self):
 		return self.name
 
-	# Kinda weird to be putting urls in the model...
 	@property
-	def codetest_url(self):
-		return '/school?id=%s' % self.id
+	def dict(self):
+		return {
+			'id': self.id,
+			'name': self.name,
+		}
 
